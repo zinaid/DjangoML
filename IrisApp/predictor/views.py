@@ -10,15 +10,14 @@ def predict_chances(request):
 
     if request.POST.get('action') == 'post':
 
-        # Receive data from client
         sepal_length = float(request.POST.get('sepal_length'))
         sepal_width = float(request.POST.get('sepal_width'))
         petal_length = float(request.POST.get('petal_length'))
         petal_width = float(request.POST.get('petal_width'))
 
-        # Unpickle model
+        
         model = pd.read_pickle("KNN_model.pickle") 
-        # Make prediction
+       
         result = model.predict([[sepal_length, sepal_width, petal_length, petal_width]])
 
         classification = result[0]
@@ -32,6 +31,5 @@ def predict_chances(request):
 
 
 def view_results(request):
-    #Submit prediction and show all
     data = {"dataset": PredResults.objects.all()}
     return render(request, "db.html", data)
